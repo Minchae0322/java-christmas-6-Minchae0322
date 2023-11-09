@@ -4,27 +4,26 @@ import christmas.domain.menuImpl.Dessert;
 import christmas.domain.menuImpl.Main;
 import christmas.type.Badge;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Customer {
-    private final List<Menu> menus;
+    private final Map<Menu, Integer> menus;
     private final Calendar visitDate;
     private long discountAmount;
 
-    public Customer(List<Menu> menus, Calendar visitDate) {
+    public Customer(Map<Menu, Integer> menus, Calendar visitDate) {
         validate(menus, visitDate);
         this.menus = menus;
         this.visitDate = visitDate;
         this.discountAmount = 0;
     }
 
-    private void validate(List<Menu> menus, Calendar visitDate) {
-        if(menus.stream().distinct().toList().size() != menus.size()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        }
+    private void validate(Map<Menu, Integer> menus, Calendar visitDate) {
 
     }
 
@@ -32,26 +31,27 @@ public class Customer {
         return discountAmount += amount;
     }
 
-    public int getOrderAmount() {
-        int sum = 0;
-        for(Menu menu : menus) {
-            sum += menu.getPrice();
-        }
-        return sum;
+    public long getOrderCost() {
+        return menus.entrySet().stream()
+                .map(menu -> menu.getKey().getPrice() * menu.getValue())
+                .mapToLong(Long::longValue)
+                .sum();
     }
 
     public int getDessertAmount() {
-        return menus.stream()
-                .filter(menu -> menu instanceof Dessert)
-                .toList()
-                .size();
+        return menus.entrySet().stream()
+                .filter(menu -> menu.getKey() instanceof Dessert)
+                .map(Map.Entry::getValue)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public int getMainAmount() {
-        return menus.stream()
-                .filter(menu -> menu instanceof Main)
-                .toList()
-                .size();
+        return menus.entrySet().stream()
+                .filter(menu -> menu.getKey() instanceof Main)
+                .map(Map.Entry::getValue)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public Calendar getVisitDate() {
