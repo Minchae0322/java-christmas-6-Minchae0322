@@ -15,9 +15,17 @@ public class Customer {
     private long discountAmount;
 
     public Customer(List<Menu> menus, Calendar visitDate) {
+        validate(menus, visitDate);
         this.menus = menus;
         this.visitDate = visitDate;
         this.discountAmount = 0;
+    }
+
+    private void validate(List<Menu> menus, Calendar visitDate) {
+        if(menus.stream().distinct().toList().size() != menus.size()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+
     }
 
     public long addDiscountAmount(long amount) {
