@@ -5,12 +5,9 @@ import christmas.domain.Menu;
 public class Dessert extends Menu {
 
 
-    public Dessert(String menuName, long price, int amount) {
-        super(menuName, price, amount);
+    public Dessert(String menuName, long price) {
+        super(menuName, price);
     }
 
-    @Override
-    public Menu getType(String menuName, long price, int amount) {
-        return new Dessert(menuName, price, amount);
-    }
+
 }

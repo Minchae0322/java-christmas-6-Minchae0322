@@ -16,4 +16,13 @@ public class Restaurant {
             throw new IllegalArgumentException("[ERROR] 중복된 메뉴가 있습니다.");
         }
     }
+
+    public Menu getEqualMenu(String menuName) {
+        for(Menu menu : restaurantMenu) {
+            if(menu.getMenuName().equals(menuName)) {
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }

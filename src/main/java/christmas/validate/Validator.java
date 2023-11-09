@@ -23,11 +23,9 @@ public class Validator {
         }
     }
 
-    public static void validateOrderMenus(Restaurant restaurant, List<Menu> inputMenu) {
-        for(Menu menu : inputMenu) {
-            if(restaurant.isDuplicate(menu)) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
+    public static void validateOrderMenus(Restaurant restaurant, String inputMenu) {
+        if(restaurant.getEqualMenu(inputMenu) == null) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 }

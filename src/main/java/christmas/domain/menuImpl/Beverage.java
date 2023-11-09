@@ -4,13 +4,10 @@ import christmas.domain.Menu;
 
 public class Beverage extends Menu {
 
-    public Beverage(String menuName, long price, int amount) {
-        super(menuName, price, amount);
+    public Beverage(String menuName, long price) {
+        super(menuName, price);
     }
 
 
-    @Override
-    public Menu getType(String menuName, long price, int amount) {
-        return new Beverage(menuName, price, amount);
-    }
+
 }

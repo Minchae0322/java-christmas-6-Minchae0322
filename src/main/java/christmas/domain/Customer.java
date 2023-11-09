@@ -2,23 +2,18 @@ package christmas.domain;
 
 import christmas.domain.menuImpl.Dessert;
 import christmas.domain.menuImpl.Main;
-import christmas.type.Badge;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Customer {
-    private final Map<Menu, Integer> menus;
+    private final Map<Menu, Integer> orderedMenus;
     private final Calendar visitDate;
     private long discountAmount;
 
-    public Customer(Map<Menu, Integer> menus, Calendar visitDate) {
-        validate(menus, visitDate);
-        this.menus = menus;
+    public Customer(Map<Menu, Integer> orderedMenus, Calendar visitDate) {
+        validate(orderedMenus, visitDate);
+        this.orderedMenus = orderedMenus;
         this.visitDate = visitDate;
         this.discountAmount = 0;
     }
@@ -32,14 +27,14 @@ public class Customer {
     }
 
     public long getOrderCost() {
-        return menus.entrySet().stream()
+        return orderedMenus.entrySet().stream()
                 .map(menu -> menu.getKey().getPrice() * menu.getValue())
                 .mapToLong(Long::longValue)
                 .sum();
     }
 
     public int getDessertAmount() {
-        return menus.entrySet().stream()
+        return orderedMenus.entrySet().stream()
                 .filter(menu -> menu.getKey() instanceof Dessert)
                 .map(Map.Entry::getValue)
                 .mapToInt(Integer::intValue)
@@ -47,7 +42,7 @@ public class Customer {
     }
 
     public int getMainAmount() {
-        return menus.entrySet().stream()
+        return orderedMenus.entrySet().stream()
                 .filter(menu -> menu.getKey() instanceof Main)
                 .map(Map.Entry::getValue)
                 .mapToInt(Integer::intValue)
@@ -61,7 +56,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "menus=" + menus +
+                "menus=" + orderedMenus +
                 '}';
     }
 }
