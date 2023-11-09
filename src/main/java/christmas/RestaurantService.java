@@ -20,10 +20,6 @@ public class RestaurantService {
         this.discountPolicies = discountPolicies;
     }
 
-    public Customer order(List<Menu> orderedMenus, Calendar visitDate) {
-        return new Customer(orderedMenus, visitDate);
-    }
-
     public Map<String, Long> discount(Customer customer) {
         Map<String, Long> discountInfo = new HashMap<>();
         for(DiscountPolicy discountPolicy : discountPolicies) {
