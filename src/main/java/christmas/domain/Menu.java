@@ -1,9 +1,10 @@
 package christmas.domain;
 
-public abstract class Menu implements Giveaway {
+public abstract class Menu {
     private final String menuName;
 
     private final long price;
+
 
     public Menu(String menuName, long price) {
         validate(menuName, price);

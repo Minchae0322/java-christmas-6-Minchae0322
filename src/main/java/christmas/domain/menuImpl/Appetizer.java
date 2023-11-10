@@ -8,5 +8,4 @@ public class Appetizer extends Menu {
     }
 
 
-
 }

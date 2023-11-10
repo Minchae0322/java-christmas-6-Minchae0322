@@ -22,7 +22,7 @@ public class Customer {
 
     }
 
-    public long addDiscountAmount(long amount) {
+    public long addBenefitAmount(long amount) {
         return benefits += amount;
     }
 
@@ -51,6 +51,10 @@ public class Customer {
 
     public Calendar getVisitDate() {
         return this.visitDate;
+    }
+
+    public Map<Menu, Integer> getOrderedMenus() {
+        return orderedMenus;
     }
 
     @Override
