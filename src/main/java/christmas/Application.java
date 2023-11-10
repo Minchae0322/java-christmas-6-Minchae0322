@@ -13,12 +13,15 @@ import christmas.domain.menuImpl.Beverage;
 import christmas.domain.menuImpl.Dessert;
 import christmas.domain.menuImpl.Main;
 import christmas.type.DayOfWeek;
+import christmas.util.CalendarProvider;
 import christmas.view.InputView;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static christmas.util.CalendarProvider.getCalendar;
 
 public class Application {
     public static void main(String[] args) {
@@ -27,9 +30,7 @@ public class Application {
         RestaurantService restaurantService = new RestaurantService(restaurant, initDiscountPolicy(), initGiveaway());
         CustomerService customerService = new CustomerService();
         InputView inputView = new InputView();
-        Calendar visitDay = Calendar.getInstance();
-        visitDay.clear();
-        visitDay.set(2023, Calendar.DECEMBER, inputView.readDate());
+        Calendar visitDay = getCalendar(2023, Calendar.DECEMBER, inputView.readDate());
         customerService.order(inputView.readMenus(restaurant), visitDay);
 
     }
@@ -56,26 +57,13 @@ public class Application {
     }
 
     public static List<Calendar> getChristmasEventDate() {
-        Calendar christmasStart = Calendar.getInstance();
-        christmasStart.clear();
-        christmasStart.set(2023, Calendar.DECEMBER, 1);
-
-        Calendar christmasEnd = Calendar.getInstance();
-        christmasEnd.clear();
-        christmasEnd.set(2023, Calendar.DECEMBER, 25);
-
+        Calendar christmasStart = getCalendar(2023, Calendar.DECEMBER, 1);
+        Calendar christmasEnd = getCalendar(2023, Calendar.DECEMBER, 25);
         return List.of(christmasStart, christmasEnd);
     }
 
     public static List<Calendar> getSpecialDate() {
-        Calendar special1 = Calendar.getInstance();
-        special1.clear();
-        special1.set(2023, Calendar.DECEMBER, 3);
-
-        Calendar special2 = Calendar.getInstance();
-        special2.clear();
-        special2.set(2023, Calendar.DECEMBER, 4);
-
-        return List.of(special2, special1);
+        return List.of(getCalendar(2023, Calendar.DECEMBER, 3),
+                getCalendar(2023, Calendar.DECEMBER, 10));
     }
 }
