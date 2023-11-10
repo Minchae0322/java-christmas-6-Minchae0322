@@ -1,6 +1,6 @@
 package christmas.domain;
 
-public abstract class Menu {
+public abstract class Menu implements Giveaway {
     private final String menuName;
 
     private final long price;

@@ -9,13 +9,13 @@ import java.util.Map;
 public class Customer {
     private final Map<Menu, Integer> orderedMenus;
     private final Calendar visitDate;
-    private long discountAmount;
+    private long benefits;
 
     public Customer(Map<Menu, Integer> orderedMenus, Calendar visitDate) {
         validate(orderedMenus, visitDate);
         this.orderedMenus = orderedMenus;
         this.visitDate = visitDate;
-        this.discountAmount = 0;
+        this.benefits = 0;
     }
 
     private void validate(Map<Menu, Integer> menus, Calendar visitDate) {
@@ -23,7 +23,7 @@ public class Customer {
     }
 
     public long addDiscountAmount(long amount) {
-        return discountAmount += amount;
+        return benefits += amount;
     }
 
     public long getOrderCost() {
