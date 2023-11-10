@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class SpecialDiscount implements DiscountPolicy {
+    private final String discountName = "특별 할인";
     private final List<Calendar> specialDays;
 
     public static final long DISCOUNT_SPECIAL_DAY = 1000;
@@ -32,6 +33,6 @@ public class SpecialDiscount implements DiscountPolicy {
 
     @Override
     public String getDiscountName() {
-        return null;
+        return discountName;
     }
 }

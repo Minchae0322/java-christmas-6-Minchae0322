@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.domain.menuImpl.Dessert;
 import christmas.domain.menuImpl.Main;
+import christmas.type.Badge;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -10,6 +11,8 @@ public class Customer {
     private final Map<Menu, Integer> orderedMenus;
     private final Calendar visitDate;
     private long benefits;
+
+    private Badge badge;
 
     public Customer(Map<Menu, Integer> orderedMenus, Calendar visitDate) {
         validate(orderedMenus, visitDate);
@@ -22,9 +25,11 @@ public class Customer {
 
     }
 
-    public long addBenefitAmount(long amount) {
-        return benefits += amount;
+    public void addBenefitAmount(long amount) {
+        benefits += amount;
     }
+
+
 
     public long getOrderCost() {
         return orderedMenus.entrySet().stream()

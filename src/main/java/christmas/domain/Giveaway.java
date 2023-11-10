@@ -13,7 +13,7 @@ public class Giveaway {
     public List<Menu> getGiveawaysReceive(long orderAmount) {
         return giveaways.entrySet()
                 .stream()
-                .filter(menu -> menu.getValue() >= orderAmount)
+                .filter(menu -> menu.getValue() <= orderAmount)
                 .map(Map.Entry::getKey)
                 .toList();
     }

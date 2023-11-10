@@ -8,6 +8,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class WeekDayDiscount implements DiscountPolicy {
+
+    private final String discountName = "평일 할인";
     private final List<DayOfWeek> discountDays;
 
     public static final long WEEK_DAY_DISCOUNT = 2023;
@@ -30,6 +32,6 @@ public class WeekDayDiscount implements DiscountPolicy {
 
     @Override
     public String getDiscountName() {
-        return null;
+        return discountName;
     }
 }

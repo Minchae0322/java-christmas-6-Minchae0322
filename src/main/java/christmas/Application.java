@@ -5,6 +5,7 @@ import christmas.discount.impl.ChristmasDdayDiscount;
 import christmas.discount.impl.SpecialDiscount;
 import christmas.discount.impl.WeekDayDiscount;
 import christmas.discount.impl.WeekendDiscount;
+import christmas.domain.Customer;
 import christmas.domain.Giveaway;
 import christmas.domain.Menu;
 import christmas.domain.Restaurant;
@@ -15,6 +16,7 @@ import christmas.domain.menuImpl.Main;
 import christmas.type.DayOfWeek;
 import christmas.util.CalendarProvider;
 import christmas.view.InputView;
+import christmas.view.OutputView;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -30,9 +32,17 @@ public class Application {
         RestaurantService restaurantService = new RestaurantService(restaurant, initDiscountPolicy(), initGiveaway());
         CustomerService customerService = new CustomerService();
         InputView inputView = new InputView();
-        Calendar visitDay = getCalendar(2023, Calendar.DECEMBER, inputView.readDate());
-        customerService.order(inputView.readMenus(restaurant), visitDay);
+        OutputView outputView = new OutputView();
 
+        Calendar visitDay = getCalendar(2023, Calendar.DECEMBER, inputView.readDate());
+        Customer customer = customerService.order(inputView.readMenus(restaurant), visitDay);
+
+        outputView.printMenu(customer.getOrderedMenus());
+        outputView.printOrderedAmount(customer.getOrderCost());
+        outputView.printBenefitMenu(restaurantService.getCustomerGiveaway(customer.getOrderCost()));
+        outputView.printBenefit(restaurantService.discount(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGiveaway(customer.getOrderCost())));
+        outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
+        customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer));
     }
 
     public static Restaurant initRestaurant() {
