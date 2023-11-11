@@ -19,7 +19,7 @@ public class InputView {
             validateDate(input);
             return Integer.parseInt(input);
         } catch (IllegalArgumentException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
             return readDate();
         }
     }
@@ -30,7 +30,7 @@ public class InputView {
         try {
             return Parser.parseMenu(restaurant, input);
         } catch (IllegalArgumentException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
             return readMenus(restaurant);
         }
 

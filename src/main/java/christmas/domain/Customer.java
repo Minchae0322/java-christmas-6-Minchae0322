@@ -11,7 +11,6 @@ public class Customer {
     private final Map<Menu, Integer> orderedMenus;
     private final Calendar visitDate;
     private long benefits;
-
     private Badge badge;
 
     public Customer(Map<Menu, Integer> orderedMenus, Calendar visitDate) {
@@ -19,14 +18,16 @@ public class Customer {
         this.orderedMenus = orderedMenus;
         this.visitDate = visitDate;
         this.benefits = 0;
+        this.badge = Badge.없음;
     }
 
     private void validate(Map<Menu, Integer> menus, Calendar visitDate) {
 
     }
 
-    public void addBenefitAmount(long amount) {
+    public String addBenefitAmount(long amount) {
         benefits += amount;
+        return badge.getBadgeName(benefits);
     }
 
 

@@ -62,4 +62,16 @@ public class OutputView {
         System.out.println("-" + decFormat.format(amount) + "원");
         System.out.println();
     }
+
+    public void printBadge(String badgeName) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badgeName);
+    }
+
+    public void printAmount(long amount) {
+        System.out.println("<할인 후 예상 결제 금액>");
+        DecimalFormat decFormat = new DecimalFormat("###,###");
+        System.out.println("-" + decFormat.format(amount) + "원");
+        System.out.println();
+    }
 }

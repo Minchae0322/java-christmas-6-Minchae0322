@@ -11,4 +11,17 @@ public enum Badge {
     }
 
     private final long price;
+
+    public String getBadgeName(long benefitAmount) {
+        if(price >= 20000) {
+            return "산타";
+        }
+        if(price >= 10000) {
+            return "트리";
+        }
+        if(price >= 5000) {
+            return "별";
+        }
+        return "없음";
+    }
 }

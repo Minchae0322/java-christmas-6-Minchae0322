@@ -42,7 +42,8 @@ public class Application {
         outputView.printBenefitMenu(restaurantService.getCustomerGiveaway(customer.getOrderCost()));
         outputView.printBenefit(restaurantService.discount(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGiveaway(customer.getOrderCost())));
         outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
-        customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer));
+        outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.discount(customer)));
+        outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
     }
 
     public static Restaurant initRestaurant() {
