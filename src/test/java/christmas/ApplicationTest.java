@@ -131,6 +131,14 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 주문_예외_테스트_형식() {
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-15,,제로콜라-3");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
 
     @Override
     protected void runMain() {
