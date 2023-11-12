@@ -18,7 +18,10 @@ public class SpecialDiscount implements DiscountPolicy {
 
     @Override
     public long discount(Customer customer) {
-        return DISCOUNT_SPECIAL_DAY;
+        if(isDiscountable(customer)) {
+            return DISCOUNT_SPECIAL_DAY;
+        }
+        return 0L;
     }
 
     @Override

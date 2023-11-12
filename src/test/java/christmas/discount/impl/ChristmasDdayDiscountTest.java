@@ -3,6 +3,7 @@ package christmas.discount.impl;
 import christmas.domain.Customer;
 import christmas.type.Badge;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ChristmasDdayDiscountTest {
     @Test
+    @DisplayName("21일 날 방문했을때 크리스마스 디데이 할인으로 얻는 혜택")
     void 할인_금액() {
         Calendar start = Calendar.getInstance();
         start.clear();
