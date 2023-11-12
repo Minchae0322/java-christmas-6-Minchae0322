@@ -1,5 +1,6 @@
-package christmas.discount.impl;
+package christmas.discount;
 
+import christmas.discount.impl.ChristmasDdayDiscount;
 import christmas.domain.Customer;
 import christmas.type.Badge;
 import christmas.util.CalendarProvider;

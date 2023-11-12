@@ -29,6 +29,9 @@ public class Validator {
     }
 
     public static void validateOrderMenus(Restaurant restaurant, String inputMenu) {
+        if(inputMenu.equals(" ")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
         if(!inputMenu.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }

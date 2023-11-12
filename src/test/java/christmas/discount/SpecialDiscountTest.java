@@ -1,5 +1,6 @@
-package christmas.discount.impl;
+package christmas.discount;
 
+import christmas.discount.impl.SpecialDiscount;
 import christmas.domain.Customer;
 import christmas.util.CalendarProvider;
 import org.junit.jupiter.api.BeforeEach;

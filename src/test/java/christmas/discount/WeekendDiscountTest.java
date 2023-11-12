@@ -1,5 +1,6 @@
-package christmas.discount.impl;
+package christmas.discount;
 
+import christmas.discount.impl.WeekendDiscount;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.menuImpl.Dessert;
