@@ -23,9 +23,12 @@ public class ChristmasDdayDiscount implements DiscountPolicy {
 
     @Override
     public long discount(Customer customer) {
-        long diffSec = (customer.getVisitDate().getTimeInMillis() - eventStart.getTimeInMillis()) / 1000; //초 차이
-        long diffDays = diffSec / (60 * 60 * 24);
-        return 1000 + diffDays * DISCOUNT_AMOUNT_PER_DAY;
+        if(isDiscountable(customer)) {
+            long diffSec = (customer.getVisitDate().getTimeInMillis() - eventStart.getTimeInMillis()) / 1000; //초 차이
+            long diffDays = diffSec / (60 * 60 * 24);
+            return 1000 + diffDays * DISCOUNT_AMOUNT_PER_DAY;
+        }
+        return 0L;
     }
 
     @Override
