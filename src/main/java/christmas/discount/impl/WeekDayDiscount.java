@@ -20,7 +20,10 @@ public class WeekDayDiscount implements DiscountPolicy {
 
     @Override
     public long discount(Customer customer) {
-        return customer.getDessertAmount() * WEEK_DAY_DISCOUNT;
+        if(isDiscountable(customer)) {
+            return customer.getDessertAmount() * WEEK_DAY_DISCOUNT;
+        }
+        return 0L;
     }
 
     @Override

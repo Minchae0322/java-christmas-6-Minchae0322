@@ -17,7 +17,6 @@ class SpecialDiscountTest {
 
     @BeforeEach
     void before() {
-
         specialDiscount = new SpecialDiscount(List.of(CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 3),
                 CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 10), CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 17),
                 CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 24), CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 25),
