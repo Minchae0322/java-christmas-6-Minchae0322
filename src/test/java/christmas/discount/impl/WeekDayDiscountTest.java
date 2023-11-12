@@ -36,6 +36,17 @@ class WeekDayDiscountTest {
     }
 
     @Test
+    @DisplayName("평일에 방문했을경우 할인 디저트 2개 주문")
+    void 할인_금액_평일_2개() {
+        Map<Menu, Integer> orderedMenus = new HashMap<>();
+        orderedMenus.put(new Dessert("아이스크림", 5000), 2);
+        Customer customer = new Customer(orderedMenus, CalendarProvider.getCalendar(2023, Calendar.DECEMBER, 11));
+
+        assertTrue(weekDayDiscount.isDiscountable(customer));
+        assertEquals(4046, weekDayDiscount.discount(customer));
+    }
+
+    @Test
     @DisplayName("평일에 방문했을경우 할인 디저트 0개 주문")
     void 할인_금액_평일_0개() {
         Map<Menu, Integer> orderedMenus = new HashMap<>();

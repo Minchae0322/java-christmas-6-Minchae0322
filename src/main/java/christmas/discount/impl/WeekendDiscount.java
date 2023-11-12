@@ -20,14 +20,17 @@ public class WeekendDiscount implements DiscountPolicy {
 
     @Override
     public long discount(Customer customer) {
-        return customer.getMainAmount() * WEEKEND_DISCOUNT;
+        if(isDiscountable(customer)) {
+            return customer.getMainAmount() * WEEKEND_DISCOUNT;
+        }
+        return 0L;
     }
 
     @Override
     public boolean isDiscountable(Customer customer) {
         Calendar visitDay = customer.getVisitDate();
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(visitDay.get(Calendar.DAY_OF_WEEK));
-        return discountDays.contains(dayOfWeek) && customer.getDessertAmount() > 0;
+        return discountDays.contains(dayOfWeek) && customer.getMainAmount() > 0;
     }
 
     @Override
