@@ -22,7 +22,7 @@ public class Customer {
     }
 
     private void validate(Map<Menu, Integer> menus, Calendar visitDate) {
-        if(menus == null) {
+        if (menus == null) {
             throw new NullPointerException("메뉴를 주문하지 않았습니다.");
         }
     }
@@ -32,29 +32,26 @@ public class Customer {
         return badge.getBadgeName(benefits);
     }
 
-
-
     public long getOrderCost() {
         return orderedMenus.entrySet().stream()
-                .map(menu -> menu.getKey().getPrice() * menu.getValue())
-                .mapToLong(Long::longValue)
+                .mapToLong(menu -> menu.getKey().getPrice() * menu.getValue())
+                .sum();
+    }
+
+    public int getMenuAmount(Class<? extends Menu> menuType) {
+        return orderedMenus.entrySet().stream()
+                .filter(menu -> menuType.isInstance(menu.getKey()))
+                .map(Map.Entry::getValue)
+                .mapToInt(Integer::intValue)
                 .sum();
     }
 
     public int getDessertAmount() {
-        return orderedMenus.entrySet().stream()
-                .filter(menu -> menu.getKey() instanceof Dessert)
-                .map(Map.Entry::getValue)
-                .mapToInt(Integer::intValue)
-                .sum();
+        return getMenuAmount(Dessert.class);
     }
 
     public int getMainAmount() {
-        return orderedMenus.entrySet().stream()
-                .filter(menu -> menu.getKey() instanceof Main)
-                .map(Map.Entry::getValue)
-                .mapToInt(Integer::intValue)
-                .sum();
+        return getMenuAmount(Main.class);
     }
 
     public Calendar getVisitDate() {
@@ -68,7 +65,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "menus=" + orderedMenus +
+                "orderedMenus=" + orderedMenus +
                 '}';
     }
 }
