@@ -2,7 +2,6 @@ package christmas.validate;
 
 
 import christmas.domain.Menu;
-import christmas.domain.Restaurant;
 import christmas.domain.menuImpl.Beverage;
 
 import java.util.List;
@@ -20,11 +19,21 @@ public class Validator {
         }
     }
 
-    public static void validateNumericAmount(String numeric) {
-        if(numeric.equals(" ")) {
+    public static void validateOrderedMenuType(String menuType) {
+        if(menuType.equals("")) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        if(!numeric.chars().allMatch(Character::isDigit)) {
+        if(!menuType.contains("-")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        if(menuType.split("-", -1).length > 2) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        String menuAmount = menuType.split("-", -1)[1];
+        if(menuAmount.equals(" ") || menuAmount.equals("")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+        if(!menuAmount.chars().allMatch(Character::isDigit)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }

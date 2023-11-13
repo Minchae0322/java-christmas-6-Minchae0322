@@ -51,6 +51,14 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
+    void 날짜_예외_테스트3() {
+        assertSimpleTest(() -> {
+            runException("-1");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
     void 주문_예외_테스트() {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-a");
@@ -59,10 +67,10 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    @DisplayName("수량을 숫자가 아닌 문자를 입력했을경우")
+    @DisplayName("수량에 형식이 맞지 않을경우")
     void 주문_예외_테스트2() {
         assertSimpleTest(() -> {
-            runException("3", "제로콜라-a");
+            runException("3", "제로콜라- a");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }
@@ -108,7 +116,7 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    @DisplayName("메뉴 입력")
+    @DisplayName("메뉴에 없는 메뉴 입력시 예외")
     void 메뉴_입력5() {
         assertSimpleTest(() -> {
             runException("3", "김다빠진제로콜라-1");
@@ -135,6 +143,30 @@ class ApplicationTest extends NsTest {
     void 주문_예외_테스트_형식() {
         assertSimpleTest(() -> {
             runException("3", "티본스테이크-15,,제로콜라-3");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 주문_예외_테스트_형식2() {
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-15,");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 주문_예외_테스트_형식3() {
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 주문_예외_테스트_형식4() {
+        assertSimpleTest(() -> {
+            runException("3", "티본스테이크-2-티본스테이크-3");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }

@@ -10,15 +10,14 @@ import static christmas.validate.Validator.*;
 public class Parser {
 
     public static HashMap<Menu, Integer> parseMenu(Restaurant restaurant, String menus) {
-        String[] parsedMenu = menus.split(",");
+        String[] parsedMenu = menus.split(",", -1);
         HashMap<Menu, Integer> menuInfo = new HashMap<>();
 
         for(String menu : parsedMenu) {
+            validateOrderedMenuType(menu);
             String menuName = menu.split("-")[0];
             String menuAmount = menu.split("-")[1];
-            validateNumericAmount(menuAmount);
-            int amount = Integer.parseInt(menuAmount);
-            menuInfo.put(restaurant.getEqualMenu(menuName), amount);
+            menuInfo.put(restaurant.getEqualMenu(menuName), Integer.parseInt(menuAmount));
         }
         validateDuplicateMenu(parsedMenu.length, menuInfo.size());
         validateOrderedMenus(menuInfo);
