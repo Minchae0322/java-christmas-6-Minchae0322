@@ -14,7 +14,20 @@ public enum Badge {
         this.badgeName = badgeName;
     }
 
-    public String getBadgeName(long benefitAmount) {
-        return (price <= benefitAmount) ? badgeName : "없음";
+    public static Badge getBadge(long benefitAmount) {
+        if(benefitAmount >= 20000) {
+            return Badge.산타;
+        }
+        if(benefitAmount >= 10000) {
+            return Badge.트리;
+        }
+        if(benefitAmount >= 5000) {
+            return Badge.별;
+        }
+        return Badge.없음;
+    }
+
+    public static String getName(Badge badge) {
+        return badge.badgeName;
     }
 }

@@ -13,7 +13,7 @@ public class RestaurantService {
     private final Restaurant restaurant;
     private final List<DiscountPolicy> discountPolicies;
 
-    public static final Long MIN_BENEFIT_AMOUNT = 10000L;
+    public static final long MIN_BENEFIT_AMOUNT = 10000L;
 
 
     public RestaurantService(Restaurant restaurant, List<DiscountPolicy> discountPolicies) {
@@ -24,7 +24,7 @@ public class RestaurantService {
 
     public Map<String, Long> getDiscountInfo(Customer customer) {
         Map<String, Long> discountInfo = new HashMap<>();
-        if(isDiscountable(customer.getOrderCost())) {
+        if(!isDiscountable(customer.getOrderCost())) {
             return discountInfo;
         }
 
@@ -50,11 +50,9 @@ public class RestaurantService {
     }
 
     public long getDiscountBenefitAmount(Customer customer) {
-        long benefitAmount = 0;
-        for(DiscountPolicy discountPolicy : discountPolicies) {
-            benefitAmount += discount(discountPolicy, customer);
-        }
-        return benefitAmount;
+        return discountPolicies.stream()
+                .mapToLong(discountPolicy -> discount(discountPolicy, customer))
+                .sum();
     }
 
     public long getAllBenefitAmount(Customer customer) {

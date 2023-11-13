@@ -72,6 +72,11 @@ public class OutputView {
 
     public void printAmount(long amount) {
         System.out.println("<할인 후 예상 결제 금액>");
+        if(amount < 0) {
+            System.out.println(0 + "원");
+            System.out.println();
+            return;
+        }
         System.out.println("-" + addMoneyDecFormat(amount) + "원");
         System.out.println();
     }

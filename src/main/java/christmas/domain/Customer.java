@@ -29,7 +29,8 @@ public class Customer {
 
     public String addBenefitAmount(long amount) {
         benefits += amount;
-        return badge.getBadgeName(benefits);
+        badge = Badge.getBadge(amount);
+        return Badge.getName(badge);
     }
 
     public long getOrderCost() {
