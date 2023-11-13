@@ -28,7 +28,7 @@ public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
         Restaurant restaurant = initRestaurant();
-        RestaurantService restaurantService = new RestaurantService(restaurant, initDiscountPolicy(), initGiveaway());
+        RestaurantService restaurantService = new RestaurantService(restaurant, initDiscountPolicy());
         CustomerService customerService = new CustomerService();
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
@@ -39,7 +39,7 @@ public class Application {
         outputView.printMenu(customer.getOrderedMenus());
         outputView.printOrderedAmount(customer.getOrderCost());
         outputView.printBenefitMenu(restaurantService.getCustomerGifts(customer.getOrderCost()));
-        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGifts(customer.getOrderCost())));
+        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giftsBenefitAmount(restaurantService.getCustomerGifts(customer.getOrderCost())));
         outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
         outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.getDiscountInfo(customer)));
         outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
@@ -49,7 +49,7 @@ public class Application {
         return new Restaurant(List.of(new Appetizer("양송이수프", 6000), new Appetizer("타파스", 5500), new Appetizer("시저샐러드", 8000)
         , new Main("티본스테이크", 55000), new Main("바비큐립", 54000), new Main("해산물파스타", 35000)
         , new Main("크리스마스파스타", 25000), new Dessert("초코케이크", 15000), new Dessert("아이스크림", 5000)
-        , new Beverage("제로콜라", 3000), new Beverage("레드와인", 60000), new Beverage("샴페인", 25000)));
+        , new Beverage("제로콜라", 3000), new Beverage("레드와인", 60000), new Beverage("샴페인", 25000)), initGifts());
     }
 
     public static List<DiscountPolicy> initDiscountPolicy() {
@@ -60,7 +60,7 @@ public class Application {
         ,new SpecialDiscount(getSpecialDate()));
     }
 
-    public static Gift initGiveaway() {
+    public static Gift initGifts() {
         Map<Menu, Long> giveaways = new HashMap<>();
         giveaways.put(new Beverage("샴페인", 25000), 120000L);
         return new Gift(giveaways);
