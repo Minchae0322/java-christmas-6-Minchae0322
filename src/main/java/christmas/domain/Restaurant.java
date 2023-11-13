@@ -31,4 +31,8 @@ public class Restaurant {
     public List<Menu> getRestaurantGiftMenus(long amount) {
         return giftMenus.getGiftsReceivedDependingPrice(amount);
     }
+
+    public long getRestaurantGiftAmount(long amount) {
+        return giftMenus.getGiftsBenefitAmount(amount);
+    }
 }

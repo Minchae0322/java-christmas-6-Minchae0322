@@ -72,6 +72,10 @@ public class RestaurantService {
                 .sum();
     }
 
+    public long giftsBenefitAmount(long amount) {
+        return restaurant.getRestaurantGiftAmount(amount);
+    }
+
 
 
 }

@@ -17,4 +17,11 @@ public class Gift {
                 .map(Map.Entry::getKey)
                 .toList();
     }
+
+    public long getGiftsBenefitAmount(long orderAmount) {
+        return getGiftsReceivedDependingPrice(orderAmount).stream()
+                .map(Menu::getPrice)
+                .mapToLong(Long::longValue)
+                .sum();
+    }
 }

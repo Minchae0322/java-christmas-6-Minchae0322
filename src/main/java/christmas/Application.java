@@ -25,24 +25,18 @@ import java.util.Map;
 import static christmas.util.CalendarProvider.getCalendar;
 
 public class Application {
+    public static final InputView inputView = new InputView();
+    public static final OutputView outputView = new OutputView();
     public static void main(String[] args) {
         // TODO: 프로그램 구현
         Restaurant restaurant = initRestaurant();
         RestaurantService restaurantService = new RestaurantService(restaurant, initDiscountPolicy());
         CustomerService customerService = new CustomerService();
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
 
         Calendar visitDay = getCalendar(2023, Calendar.DECEMBER, inputView.readDate());
         Customer customer = customerService.order(inputView.readMenus(restaurant), visitDay);
 
-        outputView.printMenu(customer.getOrderedMenus());
-        outputView.printOrderedAmount(customer.getOrderCost());
-        outputView.printBenefitMenu(restaurantService.getCustomerGifts(customer.getOrderCost()));
-        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giftsBenefitAmount(restaurantService.getCustomerGifts(customer.getOrderCost())));
-        outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
-        outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.getDiscountInfo(customer)));
-        outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
+        printCustomerOrderInfo(restaurantService, customer);
     }
 
     public static Restaurant initRestaurant() {
@@ -75,5 +69,15 @@ public class Application {
     public static List<Calendar> getSpecialDate() {
         return List.of(getCalendar(2023, Calendar.DECEMBER, 3),
                 getCalendar(2023, Calendar.DECEMBER, 10));
+    }
+
+    public static void printCustomerOrderInfo(RestaurantService restaurantService, Customer customer) {
+        outputView.printMenu(customer.getOrderedMenus());
+        outputView.printOrderedAmount(customer.getOrderCost());
+        outputView.printBenefitMenu(restaurantService.getCustomerGifts(customer.getOrderCost()));
+        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giftsBenefitAmount(customer.getOrderCost()));
+        outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
+        outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(customer));
+        outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
     }
 }

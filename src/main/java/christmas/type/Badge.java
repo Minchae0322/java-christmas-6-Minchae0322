@@ -1,27 +1,20 @@
 package christmas.type;
 
 public enum Badge {
-    별(5000),
-    트리(10000),
-    산타(20000),
-    없음(0);
-
-    Badge(long price) {
-        this.price = price;
-    }
+    별(5000, "별"),
+    트리(10000, "트리"),
+    산타(20000, "산타"),
+    없음(0, "없음");
 
     private final long price;
+    private final String badgeName;
+
+    Badge(long price, String badgeName) {
+        this.price = price;
+        this.badgeName = badgeName;
+    }
 
     public String getBadgeName(long benefitAmount) {
-        if(price >= 20000) {
-            return "산타";
-        }
-        if(price >= 10000) {
-            return "트리";
-        }
-        if(price >= 5000) {
-            return "별";
-        }
-        return "없음";
+        return (price <= benefitAmount) ? badgeName : "없음";
     }
 }
