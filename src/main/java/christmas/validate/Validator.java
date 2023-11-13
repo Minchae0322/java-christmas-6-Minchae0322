@@ -20,12 +20,14 @@ public class Validator {
     }
 
     public static void validateOrderedMenuType(String menuType) {
+        //입력이 (...),인 경우 String[] = {(...), ""} 로 넘어온다.
         if(menuType.equals("")) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
         if(!menuType.contains("-")) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+        //입력이 스테이크-1-피자-2인 경우
         if(menuType.split("-", -1).length > 2) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }

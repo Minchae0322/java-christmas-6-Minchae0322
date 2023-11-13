@@ -16,8 +16,8 @@ public class Parser {
         for(String menu : parsedMenu) {
             validateOrderedMenuType(menu);
             String menuName = menu.split("-")[0];
-            String menuAmount = menu.split("-")[1];
-            menuInfo.put(restaurant.getEqualMenu(menuName), Integer.parseInt(menuAmount));
+            int menuAmount = Integer.parseInt(menu.split("-")[1]);
+            menuInfo.put(restaurant.getEqualMenu(menuName), menuAmount);
         }
         validateDuplicateMenu(parsedMenu.length, menuInfo.size());
         validateOrderedMenus(menuInfo);

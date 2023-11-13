@@ -14,7 +14,6 @@ import christmas.domain.menuImpl.Beverage;
 import christmas.domain.menuImpl.Dessert;
 import christmas.domain.menuImpl.Main;
 import christmas.type.DayOfWeek;
-import christmas.util.CalendarProvider;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -40,9 +39,9 @@ public class Application {
         outputView.printMenu(customer.getOrderedMenus());
         outputView.printOrderedAmount(customer.getOrderCost());
         outputView.printBenefitMenu(restaurantService.getCustomerGiveaway(customer.getOrderCost()));
-        outputView.printBenefit(restaurantService.discount(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGiveaway(customer.getOrderCost())));
+        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGiveaway(customer.getOrderCost())));
         outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
-        outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.discount(customer)));
+        outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.getDiscountInfo(customer)));
         outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
     }
 

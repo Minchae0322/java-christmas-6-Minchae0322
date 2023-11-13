@@ -15,6 +15,8 @@ public class RestaurantService {
     private final List<DiscountPolicy> discountPolicies;
     private final Giveaway giveaway;
 
+    public static final Long MIN_BENEFIT_AMOUNT = 10000L;
+
 
     public RestaurantService(Restaurant restaurant, List<DiscountPolicy> discountPolicies, Giveaway giveaway) {
         this.restaurant = restaurant;
@@ -22,17 +24,27 @@ public class RestaurantService {
         this.giveaway = giveaway;
     }
 
-    public Map<String, Long> discount(Customer customer) {
+    public Map<String, Long> getDiscountInfo(Customer customer) {
         Map<String, Long> discountInfo = new HashMap<>();
-        if(customer.getOrderCost() < 10000) {
+        if(isDiscountable(customer.getOrderCost())) {
             return discountInfo;
         }
+
         for(DiscountPolicy discountPolicy : discountPolicies) {
-            if(discountPolicy.isDiscountable(customer)) {
-                discountInfo.put(discountPolicy.getDiscountName(), discountPolicy.discount(customer));
+            long discountAmount = discount(discountPolicy, customer);
+            if(discountAmount != 0L) {
+                discountInfo.put(discountPolicy.getDiscountName(), discountAmount);
             }
         }
         return discountInfo;
+    }
+
+    public boolean isDiscountable(long amount) {
+        return amount >= MIN_BENEFIT_AMOUNT;
+    }
+
+    public Long discount(DiscountPolicy discountPolicy, Customer customer) {
+        return discountPolicy.discount(customer);
     }
 
     public long getDiscountBenefitAmount(Map<String, Long> discountInfo) {
@@ -40,7 +52,7 @@ public class RestaurantService {
     }
 
     public long getAllBenefitAmount(Customer customer) {
-        return giveawayBenefitAmount(getCustomerGiveaway(customer.getOrderCost()))+ getDiscountBenefitAmount(discount(customer));
+        return giveawayBenefitAmount(getCustomerGiveaway(customer.getOrderCost()))+ getDiscountBenefitAmount(getDiscountInfo(customer));
     }
 
     public List<Menu> getCustomerGiveaway(long orderAmount) {
