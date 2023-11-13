@@ -22,7 +22,9 @@ public class Customer {
     }
 
     private void validate(Map<Menu, Integer> menus, Calendar visitDate) {
-
+        if(menus == null) {
+            throw new NullPointerException("메뉴를 주문하지 않았습니다.");
+        }
     }
 
     public String addBenefitAmount(long amount) {

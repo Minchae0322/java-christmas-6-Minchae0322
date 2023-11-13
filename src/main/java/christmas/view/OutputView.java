@@ -18,6 +18,11 @@ public class OutputView {
         System.out.println();
     }
 
+    public static String addMoneyDecFormat(long amount) {
+        DecimalFormat decFormat = new DecimalFormat("###,###");
+        return decFormat.format(amount);
+    }
+
     public void printOrderedAmount(long amount) {
         System.out.println("<할인 전 총주문 금액>");
         DecimalFormat decFormat = new DecimalFormat("###,###");
