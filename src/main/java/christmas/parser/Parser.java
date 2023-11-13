@@ -15,9 +15,13 @@ public class Parser {
 
         for(String menu : parsedMenu) {
             String menuName = menu.split("-")[0];
-            int amount = Integer.parseInt(menu.split("-")[1]);
+            String menuAmount = menu.split("-")[1];
+            validateNumericAmount(menuAmount);
+            int amount = Integer.parseInt(menuAmount);
             menuInfo.put(restaurant.getEqualMenu(menuName), amount);
         }
+        validateDuplicateMenu(parsedMenu.length, menuInfo.size());
+        validateOrderedMenus(menuInfo);
         return menuInfo;
     }
 

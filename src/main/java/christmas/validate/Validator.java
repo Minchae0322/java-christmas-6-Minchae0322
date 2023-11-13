@@ -5,6 +5,7 @@ import christmas.domain.Menu;
 import christmas.domain.Restaurant;
 import christmas.domain.menuImpl.Beverage;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -28,14 +29,25 @@ public class Validator {
         }
     }
 
-    public static void validateOrderMenus(Restaurant restaurant, String inputMenu) {
-        if(inputMenu.equals(" ")) {
+    public static void validateOrderedAmount(List<Integer> orderedAmount) {
+        for(Integer amount : orderedAmount) {
+            if(amount < 0 || amount > 20) {
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+        }
+        int amountSum = orderedAmount.stream().mapToInt(Integer::intValue).sum();
+        if(amountSum > 20 || amountSum < 0) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
-        if(!inputMenu.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        }
-        if(restaurant.getEqualMenu(inputMenu) == null) {
+    }
+
+    public static void validateOrderedMenus(Map<Menu, Integer> orderedMenu) {
+            validateAllBeverage(orderedMenu);
+            validateOrderedAmount(orderedMenu.values().stream().toList());
+    }
+
+    public static void validateDuplicateMenu(int original, int mapSize) {
+        if(original != mapSize) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
