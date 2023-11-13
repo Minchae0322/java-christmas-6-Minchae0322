@@ -25,8 +25,7 @@ public class OutputView {
 
     public void printOrderedAmount(long amount) {
         System.out.println("<할인 전 총주문 금액>");
-        DecimalFormat decFormat = new DecimalFormat("###,###");
-        System.out.println(decFormat.format(amount) + "원");
+        System.out.println(addMoneyDecFormat(amount) + "원");
         System.out.println();
     }
 
@@ -49,11 +48,10 @@ public class OutputView {
             System.out.println("없음\n");
             return;
         }
-        DecimalFormat decFormat = new DecimalFormat("###,###");
         for(Map.Entry<String, Long> menu : benefits.entrySet()) {
-            System.out.println(menu.getKey() + ": -" + decFormat.format(menu.getValue()) + "원");
+            System.out.println(menu.getKey() + ": -" + addMoneyDecFormat(menu.getValue()) + "원");
         }
-        System.out.println("증정 이벤트" + ": -" + decFormat.format(benefitMenuAmount) + "원\n");
+        System.out.println("증정 이벤트" + ": -" + addMoneyDecFormat(benefitMenuAmount) + "원\n");
 
     }
 
@@ -63,8 +61,7 @@ public class OutputView {
             System.out.println("-"  + "0원\n");
             return;
         }
-        DecimalFormat decFormat = new DecimalFormat("###,###");
-        System.out.println("-" + decFormat.format(amount) + "원");
+        System.out.println("-" + addMoneyDecFormat(amount) + "원");
         System.out.println();
     }
 
@@ -75,8 +72,7 @@ public class OutputView {
 
     public void printAmount(long amount) {
         System.out.println("<할인 후 예상 결제 금액>");
-        DecimalFormat decFormat = new DecimalFormat("###,###");
-        System.out.println("-" + decFormat.format(amount) + "원");
+        System.out.println("-" + addMoneyDecFormat(amount) + "원");
         System.out.println();
     }
 }

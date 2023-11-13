@@ -6,7 +6,7 @@ import christmas.discount.impl.SpecialDiscount;
 import christmas.discount.impl.WeekDayDiscount;
 import christmas.discount.impl.WeekendDiscount;
 import christmas.domain.Customer;
-import christmas.domain.Giveaway;
+import christmas.domain.Gift;
 import christmas.domain.Menu;
 import christmas.domain.Restaurant;
 import christmas.domain.menuImpl.Appetizer;
@@ -38,8 +38,8 @@ public class Application {
 
         outputView.printMenu(customer.getOrderedMenus());
         outputView.printOrderedAmount(customer.getOrderCost());
-        outputView.printBenefitMenu(restaurantService.getCustomerGiveaway(customer.getOrderCost()));
-        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGiveaway(customer.getOrderCost())));
+        outputView.printBenefitMenu(restaurantService.getCustomerGifts(customer.getOrderCost()));
+        outputView.printBenefit(restaurantService.getDiscountInfo(customer), restaurantService.giveawayBenefitAmount(restaurantService.getCustomerGifts(customer.getOrderCost())));
         outputView.printAllBenefitAmount(restaurantService.getAllBenefitAmount(customer));
         outputView.printAmount(customer.getOrderCost() - restaurantService.getDiscountBenefitAmount(restaurantService.getDiscountInfo(customer)));
         outputView.printBadge(customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
@@ -60,10 +60,10 @@ public class Application {
         ,new SpecialDiscount(getSpecialDate()));
     }
 
-    public static Giveaway initGiveaway() {
+    public static Gift initGiveaway() {
         Map<Menu, Long> giveaways = new HashMap<>();
         giveaways.put(new Beverage("샴페인", 25000), 120000L);
-        return new Giveaway(giveaways);
+        return new Gift(giveaways);
     }
 
     public static List<Calendar> getChristmasEventDate() {

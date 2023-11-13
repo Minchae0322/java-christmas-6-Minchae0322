@@ -4,7 +4,7 @@ import christmas.discount.DiscountPolicy;
 import christmas.domain.Customer;
 import christmas.domain.Menu;
 import christmas.domain.Restaurant;
-import christmas.domain.Giveaway;
+import christmas.domain.Gift;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,15 +13,15 @@ import java.util.Map;
 public class RestaurantService {
     private final Restaurant restaurant;
     private final List<DiscountPolicy> discountPolicies;
-    private final Giveaway giveaway;
+    private final Gift gift;
 
     public static final Long MIN_BENEFIT_AMOUNT = 10000L;
 
 
-    public RestaurantService(Restaurant restaurant, List<DiscountPolicy> discountPolicies, Giveaway giveaway) {
+    public RestaurantService(Restaurant restaurant, List<DiscountPolicy> discountPolicies, Gift gift) {
         this.restaurant = restaurant;
         this.discountPolicies = discountPolicies;
-        this.giveaway = giveaway;
+        this.gift = gift;
     }
 
     public Map<String, Long> getDiscountInfo(Customer customer) {
@@ -52,11 +52,11 @@ public class RestaurantService {
     }
 
     public long getAllBenefitAmount(Customer customer) {
-        return giveawayBenefitAmount(getCustomerGiveaway(customer.getOrderCost()))+ getDiscountBenefitAmount(getDiscountInfo(customer));
+        return giveawayBenefitAmount(getCustomerGifts(customer.getOrderCost()))+ getDiscountBenefitAmount(getDiscountInfo(customer));
     }
 
-    public List<Menu> getCustomerGiveaway(long orderAmount) {
-        return giveaway.getGiveawaysReceive(orderAmount);
+    public List<Menu> getCustomerGifts(long orderAmount) {
+        return restaurant.getRestaurantGiftMenus(orderAmount);
     }
 
     public long giveawayBenefitAmount(List<Menu> giveaways) {

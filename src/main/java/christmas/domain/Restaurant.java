@@ -1,14 +1,16 @@
 package christmas.domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Restaurant {
     private final List<Menu> restaurantMenu;
 
-    public Restaurant(List<Menu> restaurantMenu) {
+    private final Gift giftMenus;
+
+    public Restaurant(List<Menu> restaurantMenu, Gift giftMenus) {
         validate(restaurantMenu);
         this.restaurantMenu = restaurantMenu;
+        this.giftMenus = giftMenus;
     }
 
     private void validate(List<Menu> restaurantMenu) {
@@ -24,5 +26,9 @@ public class Restaurant {
             }
         }
         throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    public List<Menu> getRestaurantGiftMenus(long amount) {
+        return giftMenus.getGiftsReceivedDependingPrice(amount);
     }
 }
