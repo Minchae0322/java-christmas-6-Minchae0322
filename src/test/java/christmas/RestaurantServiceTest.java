@@ -77,6 +77,21 @@ class RestaurantServiceTest {
     }
 
     @Test
+    void 할인_혜택_없음() {
+        Map<Menu, Integer> menus = new HashMap<>();
+        menus.put(new Appetizer("양송이수프", 6000), 2);
+
+        Calendar visit = CalendarProvider.getCalendar(2023,  Calendar.DECEMBER, 28);
+        Customer customer = new Customer(menus, visit);
+
+        Map<String, Long> discountInfo = restaurantService.getDiscountInfo(customer);
+        ;
+
+        assertTrue(discountInfo.isEmpty());
+        assertFalse(restaurantService.getCustomerGifts(customer.getOrderCost()).stream().map(Menu::getMenuName).toList().contains("샴페인"));
+
+    }
+    @Test
     void 할인_금액() {
         Map<Menu, Integer> menus = new HashMap<>();
         menus.put(new Appetizer("양송이수프", 6000), 2);
@@ -93,6 +108,20 @@ class RestaurantServiceTest {
         assertNull(discountInfo.get("주말 할인"));
         assertEquals(1000, discountInfo.get("특별 할인"));
         assertEquals(25000, restaurantService.giftsBenefitAmount(customer.getOrderCost()));
+    }
+
+    @Test
+    void 할인_금액_없음() {
+        Map<Menu, Integer> menus = new HashMap<>();
+        menus.put(new Appetizer("양송이수프", 6000), 2);
+
+
+        Calendar visit = CalendarProvider.getCalendar(2023,  Calendar.DECEMBER, 28);
+        Customer customer = new Customer(menus, visit);
+
+        Map<String, Long> discountInfo = restaurantService.getDiscountInfo(customer);
+
+        assertTrue(discountInfo.isEmpty());
     }
 
     @Test
@@ -141,6 +170,19 @@ class RestaurantServiceTest {
         Map<String, Long> discountInfo = restaurantService.getDiscountInfo(customer);
 
         assertEquals("산타", customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
+
+    }
+
+    @Test
+    void 고객_뱃지_없음() {
+        Map<Menu, Integer> menus = new HashMap<>();
+        menus.put(new Appetizer("양송이수프", 6000), 2);
+
+        Calendar visit = CalendarProvider.getCalendar(2023,  Calendar.DECEMBER, 10);
+        Customer customer = new Customer(menus, visit);
+
+
+        assertEquals("없음", customer.addBenefitAmount(restaurantService.getAllBenefitAmount(customer)));
 
     }
 
